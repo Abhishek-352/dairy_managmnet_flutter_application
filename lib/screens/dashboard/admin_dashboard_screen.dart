@@ -1,6 +1,7 @@
 import 'package:dairy_managment/screens/admin/farmer_management.dart';
+import 'package:dairy_managment/screens/auth/role_selection.dart';
 import 'package:flutter/material.dart';
-import 'package:dairy_managment/screens/auth/login_screen.dart';
+// import 'package:dairy_managment/screens/auth/login_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   final String userName;
@@ -21,7 +22,7 @@ class DashboardScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(builder: (context) => const RoleSelectionScreen()),
               );
             },
           ),
