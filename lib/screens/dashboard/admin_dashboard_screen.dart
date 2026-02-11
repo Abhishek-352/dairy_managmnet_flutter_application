@@ -1,3 +1,4 @@
+import 'package:dairy_managment/screens/admin/farmer_management.dart';
 import 'package:flutter/material.dart';
 import 'package:dairy_managment/screens/auth/login_screen.dart';
 
@@ -27,13 +28,13 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Welcome Header
-              Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Welcome Header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+              child: Row(
                 children: [
                   CircleAvatar(
                     radius: 28,
@@ -65,64 +66,67 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+            ),
 
-              // Summary Cards Row
-              Row(
+            // GridView Cards
+            Expanded(
+              child: GridView(
+                padding: const EdgeInsets.all(24),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1 / 1.1,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
                 children: [
-                  Expanded(
-                    child: _SummaryCard(
-                      title: 'Collection',
-                      icon: Icons.shopping_basket_outlined,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                  _SummaryCard(
+                    title: 'Collection',
+                    icon: Icons.shopping_basket_outlined,
+                    color: Theme.of(context).primaryColor,
+                    onTap: () {
+                      // TODO: Navigate to Collection screen
+                    },
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _SummaryCard(
-                      title: 'Report',
-                      icon: Icons.assessment_outlined,
-                      color: Colors.green,
-                    ),
+                  _SummaryCard(
+                    title: 'Report',
+                    icon: Icons.assessment_outlined,
+                    color: Colors.green,
+                    onTap: () {
+                      // TODO: Navigate to Report screen
+                    },
+                  ),
+                  _SummaryCard(
+                    title: 'Loan',
+                    icon: Icons.account_balance_wallet_outlined,
+                    color: Colors.orange,
+                    onTap: () {
+                      // TODO: Navigate to Loan screen
+                    },
+                  ),
+                  _SummaryCard(
+                    title: 'Cattle Food',
+                    icon: Icons.grass_outlined,
+                    color: Colors.brown,
+                    onTap: () {
+                      // TODO: Navigate to Cattle Food screen
+                    },
+                  ),
+                  _SummaryCard(
+                    title: 'Farmer Management',
+                    icon: Icons.people_outline_rounded,
+                    color: Colors.green,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => 
+                          AdminFarmerManagementScreen(),
+                          ),
+                        );
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _SummaryCard(
-                      title: 'Loan',
-                      icon: Icons.account_balance_wallet_outlined,
-                      color: Colors.orange,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _SummaryCard(
-                      title: 'Cattle Food',
-                      icon: Icons.grass_outlined,
-                      color: Colors.brown,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _SummaryCard(
-                      title: 'Farmer Management',
-                      icon: Icons.grass_outlined,
-                      color: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -134,45 +138,57 @@ class _SummaryCard extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
+  final VoidCallback onTap;
 
   const _SummaryCard({
     required this.title,
     required this.icon,
     required this.color,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(0, 2),
             ),
-            child: Icon(icon, color: color, size: 32),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: color, size: 28),
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

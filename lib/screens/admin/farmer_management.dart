@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:dairy_managment/models/admin_farmer_management.dart';
 import 'package:dairy_managment/data/farmer_repository.dart';
 
-class AdminCustomerManagementScreen extends StatefulWidget {
-  const AdminCustomerManagementScreen({super.key});
+class AdminFarmerManagementScreen extends StatefulWidget {
+  const AdminFarmerManagementScreen({super.key});
 
   @override
-  State<AdminCustomerManagementScreen> createState() =>
-      _AdminCustomerManagementScreenState();
+  State<AdminFarmerManagementScreen> createState() =>
+      _AdminFarmerManagementScreenState();
 }
 
-class _AdminCustomerManagementScreenState
-    extends State<AdminCustomerManagementScreen> {
+class _AdminFarmerManagementScreenState
+    extends State<AdminFarmerManagementScreen> {
   final CustomerRepository _repository = CustomerRepository();
   final TextEditingController _searchController = TextEditingController();
   List<Customer> _filteredCustomers = [];
