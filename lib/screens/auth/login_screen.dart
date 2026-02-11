@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_text_field.dart';
-import '../dashboard/dashboard_screen.dart';
+import '../dashboard/admin_dashboard_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -27,9 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() {
     if (!_formKey.currentState!.validate()) return;
 
+    String userEmail = _emailController.text.trim();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      MaterialPageRoute(
+        builder: (context) => DashboardScreen(userName: userEmail),
+      ),
     );
   }
 
@@ -55,16 +58,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     'Welcome Back',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Login to your account',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.grey,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 40),
@@ -104,10 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    child: const Text('Login', style: TextStyle(fontSize: 16)),
                   ),
                   const SizedBox(height: 16),
                   Row(

@@ -4,7 +4,7 @@ import '../../widgets/custom_text_field.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({super.key});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -69,16 +69,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   Text(
                     'Create Account',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Sign up to get started',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.grey,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 40),
@@ -124,7 +124,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       onPressed: () {
                         setState(
-                            () => _obscureConfirmPassword = !_obscureConfirmPassword);
+                          () => _obscureConfirmPassword =
+                              !_obscureConfirmPassword,
+                        );
                       },
                     ),
                     validator: (value) {
